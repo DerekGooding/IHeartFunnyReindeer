@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using TextAttempt.Services;
 
 namespace TextAttempt;
 
@@ -13,8 +12,6 @@ public static class Program
         builder.RootComponents.Add<HeadOutlet>("head::after");
 
         builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
-        builder.Services.AddSingleton<ThemeService>();
 
         await builder.Build().RunAsync();
     }

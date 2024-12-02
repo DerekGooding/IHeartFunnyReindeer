@@ -1,0 +1,65 @@
+﻿@page "/console"
+@inject IJSRuntime JSRuntime
+@using System.Timers
+
+<div class="console-container">
+    <div class="console-output" @ref="consoleOutputRef">
+        @foreach (var line in ConsoleLines)
+        {
+            <div>@line</div>
+        }
+    </div>
+    <input @bind="UserInput" @bind:event="oninput" @onkeydown="HandleKeyDown" placeholder="Enter command..." class="console-input" />
+</div>
+
+@code {
+    private List<string> ConsoleLines { get; set; } = new List<string> { "Welcome to Blazor Console App!" };
+    private string UserInput { get; set; } = string.Empty;
+    private ElementReference consoleOutputRef;
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            if (!string.IsNullOrWhiteSpace(UserInput))
+            {
+                ConsoleLines.Add($"> {UserInput}"); // User input displayed
+                await ProcessCommand(UserInput);   // Simulate command processing
+                UserInput = string.Empty;         // Clear the input field
+                await ScrollToBottomAsync();      // Scroll to the latest input/output
+            }
+        }
+    }
+
+    private async Task ProcessCommand(string command)
+    {
+        // Add logic for command processing here
+        // For example:
+        if (command.ToLower() == "help")
+        {
+            ConsoleLines.Add("Available commands: help, clear, exit");
+        }
+        else if (command.ToLower() == "clear")
+        {
+            ConsoleLines.Clear();
+            ConsoleLines.Add("Console cleared.");
+        }
+        else if (command.ToLower() == "exit")
+        {
+            ConsoleLines.Add("Exiting... (Not really since we're in a web app!)");
+        }
+        else
+        {
+            ConsoleLines.Add($"Unknown command: {command}");
+        }
+
+        // Simulate async operation delay
+        await Task.Delay(100);
+    }
+
+    private async Task ScrollToBottomAsync()
+    {
+        // Call the JavaScript function to scroll
+        await JSRuntime.InvokeVoidAsync("scrollToBottom", consoleOutputRef);
+    }
+}
