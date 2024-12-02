@@ -12,12 +12,13 @@
 </div>
 
 @code {
-    private List<string> ConsoleLines { get; set; } = new List<string> { "Welcome to @*+%!" };
+    private List<string> ConsoleLines { get; } = new List<string> { "Welcome to @*+%!" };
     private string UserInput { get; set; } = string.Empty;
     private ElementReference consoleOutputRef;
 
     private async Task HandleKeyDown(KeyboardEventArgs e)
     {
+        new WebMenu(Menus.MainMenu, ConsoleLines).Call();
         if (e.Key == "Enter")
         {
             if (!string.IsNullOrWhiteSpace(UserInput))
