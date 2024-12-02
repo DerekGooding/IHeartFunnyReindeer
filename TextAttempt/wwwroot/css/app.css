@@ -1,3 +1,17 @@
+:root {
+    --background-color: white;
+    --text-color: black;
+}
+
+.dark-theme {
+    --background-color: black;
+    --text-color: white;
+}
+.page {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

@@ -1,16 +1,41 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
+@inject Services.ThemeService ThemeService
+
+<div class="page @themeClass">
     <div class="sidebar">
         <NavMenu />
     </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
+    <main >
         <article class="content px-4">
+            <button class="btn btn-primary" @onclick="ToggleTheme">Toggle Theme</button>
             @Body
         </article>
     </main>
 </div>
+
+@code {
+    private string themeClass = "";
+
+    protected override void OnInitialized()
+    {
+        ThemeService.OnChange += UpdateTheme;
+        UpdateTheme();
+    }
+
+    private void UpdateTheme()
+    {
+        themeClass = ThemeService.CurrentTheme == "dark" ? "dark-theme" : "";
+        StateHasChanged();
+    }
+
+    private void ToggleTheme()
+    {
+        ThemeService.ToggleTheme();
+    }
+
+    public void Dispose()
+    {
+        ThemeService.OnChange -= UpdateTheme;
+    }
+}

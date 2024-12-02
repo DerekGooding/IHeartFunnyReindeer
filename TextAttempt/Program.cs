@@ -1,19 +1,21 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using TextAttempt.Services;
 
-namespace TextAttempt
+namespace TextAttempt;
+
+public static class Program
 {
-    public class Program
+    public static async Task Main()
     {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-            builder.RootComponents.Add<HeadOutlet>("head::after");
+        WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault();
+        builder.RootComponents.Add<App>("#app");
+        builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+        builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-            await builder.Build().RunAsync();
-        }
+        builder.Services.AddSingleton<ThemeService>();
+
+        await builder.Build().RunAsync();
     }
 }
