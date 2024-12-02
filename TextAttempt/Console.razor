@@ -1,5 +1,4 @@
-﻿@page "/console"
-@inject IJSRuntime JSRuntime
+﻿@inject IJSRuntime JSRuntime
 @using System.Timers
 
 <div class="console-container">
@@ -13,7 +12,7 @@
 </div>
 
 @code {
-    private List<string> ConsoleLines { get; set; } = new List<string> { "Welcome to Blazor Console App!" };
+    private List<string> ConsoleLines { get; set; } = new List<string> { "Welcome to @*+%!" };
     private string UserInput { get; set; } = string.Empty;
     private ElementReference consoleOutputRef;
 
