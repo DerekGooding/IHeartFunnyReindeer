@@ -7,6 +7,7 @@ public class ColorService : IColorService
     {
         GlobalSettings.ColorService = this;
         ConsoleService = consoleService;
+        Paragraphs.Greeting.Call();
     }
 
     public void SetTextColor(Color color) => ConsoleService.CurrentColor = color;

@@ -29,14 +29,13 @@
     {
         if (e.Key == "Enter")
         {
-            Paragraphs.Greeting.Call();
+            ConsoleService.ProcessInput();
         }
     }
 
     private async Task ProcessCommand(string command)
     {
-        ConsoleService.ProcessInput();
-
+        
         await Task.Delay(100);
     }
 

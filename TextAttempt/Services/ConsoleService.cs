@@ -7,12 +7,16 @@ public class ConsoleService : IConsoleService
 
     public List<List<TextSegment>> ColoredLines { get; } = [];
     public string UserInput { get; set; } = string.Empty;
-    private bool Process { get; set; } = false;
+    private TaskCompletionSource<string>? InputTaskCompletionSource;
 
     public void Beep(int frequency, int duration) => throw new NotImplementedException();
     public void Clear() => ColoredLines.Clear();
-    public ConsoleKeyInfo ReadKey() => throw new NotImplementedException();
-    public string? ReadLine() => throw new NotImplementedException();
+    public ConsoleKeyInfo ReadKey()
+    {
+        _ = ReadLineAsync().Result;
+        return new();
+    }
+    public string? ReadLine() => ReadLineAsync().Result;
     public void Write(string? value)
     {
         if (value == null) return;
@@ -31,7 +35,21 @@ public class ConsoleService : IConsoleService
 
     public void WriteLine() => ColoredLines.Add([]);
 
-    public void ProcessInput() => Process = true;
+    public void ProcessInput()
+    {
+        if (InputTaskCompletionSource != null && !string.IsNullOrEmpty(UserInput))
+        {
+            InputTaskCompletionSource.SetResult(UserInput);
+            UserInput = string.Empty; // Clear the input field
+        }
+    }
 
     private string AsHex(Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+
+    public Task<string> ReadLineAsync()
+    {
+        InputTaskCompletionSource = new TaskCompletionSource<string>();
+        return InputTaskCompletionSource.Task;
+    }
+
 }
