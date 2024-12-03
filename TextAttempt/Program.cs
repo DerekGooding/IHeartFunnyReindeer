@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using TextAttempt.Services;
 
 namespace TextAttempt;
 
@@ -9,7 +9,7 @@ public static class Program
     {
         WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault();
         builder.RootComponents.Add<Console>("#app");
-        //builder.RootComponents.Add<HeadOutlet>("head::after");
+        builder.Services.AddSingleton<ConsoleService>();
 
         builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 

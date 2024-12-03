@@ -1,65 +1,62 @@
 ﻿@inject IJSRuntime JSRuntime
 @using System.Timers
+@using TextAttempt.Services
 
 <div class="console-container">
     <div class="console-output" @ref="consoleOutputRef">
-        @foreach (var line in ConsoleLines)
+        @foreach (var line in ConsoleService.ConsoleLines)
         {
             <div>@line</div>
         }
     </div>
-    <input @bind="UserInput" @bind:event="oninput" @onkeydown="HandleKeyDown" placeholder="Enter command..." class="console-input" />
+    <input @bind="ConsoleService.UserInput" @bind:event="oninput" @onkeydown="HandleKeyDown" placeholder="Enter command..." class="console-input" />
 </div>
 
 @code {
-    private List<string> ConsoleLines { get; } = new List<string> { "Welcome to @*+%!" };
-    private string UserInput { get; set; } = string.Empty;
+    [Inject]
+    private ConsoleService ConsoleService { get; set; }
     private ElementReference consoleOutputRef;
 
     private async Task HandleKeyDown(KeyboardEventArgs e)
     {
-        new WebMenu(Menus.MainMenu, ConsoleLines).Call();
         if (e.Key == "Enter")
         {
             if (!string.IsNullOrWhiteSpace(UserInput))
             {
-                ConsoleLines.Add($"> {UserInput}"); // User input displayed
-                await ProcessCommand(UserInput);   // Simulate command processing
-                UserInput = string.Empty;         // Clear the input field
-                await ScrollToBottomAsync();      // Scroll to the latest input/output
+                WriteLine($"> {UserInput}"); 
+                await ProcessCommand(UserInput); 
+                ConsoleService.UserInput = string.Empty;
+                await ScrollToBottomAsync();
             }
         }
     }
 
     private async Task ProcessCommand(string command)
     {
-        // Add logic for command processing here
-        // For example:
         if (command.ToLower() == "help")
         {
-            ConsoleLines.Add("Available commands: help, clear, exit");
+            WriteLine("Available commands: help, clear, exit");
         }
         else if (command.ToLower() == "clear")
         {
-            ConsoleLines.Clear();
-            ConsoleLines.Add("Console cleared.");
+            Clear();
+            WriteLine("Console cleared.");
         }
         else if (command.ToLower() == "exit")
         {
-            ConsoleLines.Add("Exiting... (Not really since we're in a web app!)");
+            WriteLine("Exiting... (Not really since we're in a web app!)");
         }
         else
         {
-            ConsoleLines.Add($"Unknown command: {command}");
+            WriteLine($"Unknown command: {command}");
         }
 
-        // Simulate async operation delay
         await Task.Delay(100);
     }
 
-    private async Task ScrollToBottomAsync()
-    {
-        // Call the JavaScript function to scroll
-        await JSRuntime.InvokeVoidAsync("scrollToBottom", consoleOutputRef);
-    }
+    private async Task ScrollToBottomAsync() => await JSRuntime.InvokeVoidAsync("scrollToBottom", consoleOutputRef);
+
+    private void WriteLine(string line) => ConsoleService.ConsoleLines.Add(line);
+    private void Clear() => ConsoleService.ConsoleLines.Clear();
+    private string UserInput => ConsoleService.UserInput;
 }
