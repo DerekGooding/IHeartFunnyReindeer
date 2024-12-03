@@ -6,7 +6,7 @@ public static class Paragraphs
 {
     public static Paragraph Greeting =>
     Line("Welcome to the North Pole!").
-    Line("Would you like to drink?").
+    Line("Would you like a drink?").
     //GoTo(Menus.MainMenu).
     DelayInSeconds(0);
 }

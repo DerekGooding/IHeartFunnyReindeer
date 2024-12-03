@@ -18,7 +18,12 @@ public class ConsoleService : IConsoleService
     public void Clear() => ConsoleLines.Clear();
     public ConsoleKeyInfo ReadKey() => throw new NotImplementedException();
     public string? ReadLine() => throw new NotImplementedException();
-    public void Write(string? value) => ConsoleLines[^1] += value;
+    public void Write(string? value)
+    {
+        if(ConsoleLines.Count == 0)
+            ConsoleLines.Add(string.Empty);
+        ConsoleLines[^1] += value;
+    }
 
     public void WriteLine(string? value)
     {

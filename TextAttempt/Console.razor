@@ -9,7 +9,8 @@
             <div>@line</div>
         }
     </div>
-    <input @bind="ConsoleService.UserInput" @bind:event="oninput" @onkeydown="HandleKeyDown" placeholder="Enter command..." class="console-input" />
+    <input @bind="ConsoleService.UserInput" @bind:event="oninput" @onkeydown="HandleKeyDown" 
+    placeholder="Enter command..." class="console-input" />
 </div>
 
 @code {
@@ -21,43 +22,43 @@
     {
         if (e.Key == "Enter")
         {
-            if (!string.IsNullOrWhiteSpace(UserInput))
-            {
-                WriteLine($"> {UserInput}"); 
-                await ProcessCommand(UserInput); 
-                ConsoleService.UserInput = string.Empty;
-                await ScrollToBottomAsync();
-            }
+            // if (!string.IsNullOrWhiteSpace(UserInput))
+            // {
+            //     WriteLine($"> {UserInput}"); 
+            //     await ProcessCommand(UserInput); 
+            //     ConsoleService.UserInput = string.Empty;
+            //     await ScrollToBottomAsync();
+            // }
         }
     }
 
     private async Task ProcessCommand(string command)
     {
         ConsoleService.ProcessInput();
-        if (command.ToLower() == "help")
-        {
-            WriteLine("Available commands: help, clear, exit");
-        }
-        else if (command.ToLower() == "clear")
-        {
-            Clear();
-            WriteLine("Console cleared.");
-        }
-        else if (command.ToLower() == "exit")
-        {
-            WriteLine("Exiting... (Not really since we're in a web app!)");
-        }
-        else
-        {
-            WriteLine($"Unknown command: {command}");
-        }
+        // if (command.ToLower() == "help")
+        // {
+        //     WriteLine("Available commands: help, clear, exit");
+        // }
+        // else if (command.ToLower() == "clear")
+        // {
+        //     Clear();
+        //     WriteLine("Console cleared.");
+        // }
+        // else if (command.ToLower() == "exit")
+        // {
+        //     WriteLine("Exiting... (Not really since we're in a web app!)");
+        // }
+        // else
+        // {
+        //     WriteLine($"Unknown command: {command}");
+        // }
 
         await Task.Delay(100);
     }
 
     private async Task ScrollToBottomAsync() => await JSRuntime.InvokeVoidAsync("scrollToBottom", consoleOutputRef);
 
-    private void WriteLine(string line) => ConsoleService.ConsoleLines.Add(line);
-    private void Clear() => ConsoleService.ConsoleLines.Clear();
-    private string UserInput => ConsoleService.UserInput;
+    // private void WriteLine(string line) => ConsoleService.ConsoleLines.Add(line);
+    // private void Clear() => ConsoleService.ConsoleLines.Clear();
+    // private string UserInput => ConsoleService.UserInput;
 }
