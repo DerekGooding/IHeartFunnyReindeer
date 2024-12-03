@@ -34,3 +34,8 @@ jobs:
           ITCH_GAME: iheartfunnyreindeer
           ITCH_USER: totalg
           PACKAGE: build/windows
+        run: |
+          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/latest/archive/default
+          unzip butler.zip -d butler
+          ./butler/butler push build.zip totalg/iheartfunnyreindeer:html5
+
