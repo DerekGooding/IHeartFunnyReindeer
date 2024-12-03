@@ -1,0 +1,36 @@
+name: Build and Deploy to itch.io
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0 
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build Blazor WebAssembly
+        run: dotnet publish -c Release -o build_output
+
+      - name: Zip the build output
+        run: zip -r build.zip build_output
+
+      - name: Deploy to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+        run: |
+          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/latest/archive/default
+          unzip butler.zip -d butler
+          ./butler/butler push build.zip totalg/iheartfunnyreindeer:html5
