@@ -33,6 +33,7 @@
 
     private async Task ProcessCommand(string command)
     {
+        ConsoleService.ProcessInput();
         if (command.ToLower() == "help")
         {
             WriteLine("Available commands: help, clear, exit");

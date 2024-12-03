@@ -5,7 +5,8 @@ namespace TextAttempt;
 public static class Paragraphs
 {
     public static Paragraph Greeting =>
-    Line("Welcome traveller! What would you like to drink?").
-    GoTo(Menus.MainMenu).
+    Line("Welcome to the North Pole!").
+    Line("Would you like to drink?").
+    //GoTo(Menus.MainMenu).
     DelayInSeconds(0);
 }

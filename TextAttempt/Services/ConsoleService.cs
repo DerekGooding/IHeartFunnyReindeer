@@ -1,12 +1,32 @@
-﻿namespace TextAttempt.Services;
+﻿using ConsoleHero.Interfaces;
 
-public class ConsoleService
+namespace TextAttempt.Services;
+
+public class ConsoleService : IConsoleService
 {
-    public List<string> ConsoleLines { get; } = ["Welcome to the North Pole!"];
-    public string UserInput { get; set; } = string.Empty;
-
-    public void Command(string command)
+    public ConsoleService()
     {
-
+        GlobalSettings.Service = this;
+        Paragraphs.Greeting.Call();
     }
+
+    public List<string> ConsoleLines { get; } = [];
+    public string UserInput { get; set; } = string.Empty;
+    private bool Process { get; set; } = false;
+
+    public void Beep(int frequency, int duration) => throw new NotImplementedException();
+    public void Clear() => ConsoleLines.Clear();
+    public ConsoleKeyInfo ReadKey() => throw new NotImplementedException();
+    public string? ReadLine() => throw new NotImplementedException();
+    public void Write(string? value) => ConsoleLines[^1] += value;
+
+    public void WriteLine(string? value)
+    {
+        if(value != null)
+            ConsoleLines.Add(value);
+    }
+
+    public void WriteLine() => ConsoleLines.Add(string.Empty);
+
+    public void ProcessInput() => Process = true;
 }
