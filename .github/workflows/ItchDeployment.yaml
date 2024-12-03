@@ -27,10 +27,10 @@ jobs:
       - name: Zip the build output
         run: zip -r build.zip build_output
 
-      - name: Deploy to itch.io
+      - name: Deploy to itch.io from documentation
         env:
-          BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
-        run: |
-          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/latest/archive/default
-          unzip butler.zip -d butler
-          ./butler/butler push build.zip totalg/iheartfunnyreindeer:html5
+          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
+          CHANNEL: windows
+          ITCH_GAME: iheartfunnyreindeer
+          ITCH_USER: totalg
+          PACKAGE: build/windows
