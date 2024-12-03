@@ -1,37 +1,37 @@
-﻿using ConsoleHero.Interfaces;
-
-namespace TextAttempt.Services;
+﻿namespace TextAttempt.Services;
 
 public class ConsoleService : IConsoleService
 {
-    public ConsoleService()
-    {
-        GlobalSettings.Service = this;
-        Paragraphs.Greeting.Call();
-    }
+    public ConsoleService() => GlobalSettings.Service = this;
+    public Color CurrentColor { get; set; } = GlobalSettings.DefaultTextColor;
 
-    public List<string> ConsoleLines { get; } = [];
+    public List<List<TextSegment>> ColoredLines { get; } = [];
     public string UserInput { get; set; } = string.Empty;
     private bool Process { get; set; } = false;
 
     public void Beep(int frequency, int duration) => throw new NotImplementedException();
-    public void Clear() => ConsoleLines.Clear();
+    public void Clear() => ColoredLines.Clear();
     public ConsoleKeyInfo ReadKey() => throw new NotImplementedException();
     public string? ReadLine() => throw new NotImplementedException();
     public void Write(string? value)
     {
-        if(ConsoleLines.Count == 0)
-            ConsoleLines.Add(string.Empty);
-        ConsoleLines[^1] += value;
+        if (value == null) return;
+        if(ColoredLines.Count == 0)
+            ColoredLines.Add([]);
+
+        ColoredLines[^1].Add(new() { Color = AsHex(CurrentColor), Text = value });
     }
 
     public void WriteLine(string? value)
     {
-        if(value != null)
-            ConsoleLines.Add(value);
+        if (value == null) return;
+        ColoredLines[^1].Add(new() { Color = AsHex(CurrentColor), Text = value });
+        ColoredLines.Add([]);
     }
 
-    public void WriteLine() => ConsoleLines.Add(string.Empty);
+    public void WriteLine() => ColoredLines.Add([]);
 
     public void ProcessInput() => Process = true;
+
+    private string AsHex(Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
 }
