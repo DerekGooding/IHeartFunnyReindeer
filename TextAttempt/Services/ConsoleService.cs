@@ -1,7 +1,16 @@
-﻿namespace TextAttempt.Services;
+﻿
+namespace TextAttempt.Services;
 
 public class ConsoleService : IConsoleService
 {
+    private IListeningNode? CurrentListener;
+    public void SetListener(IListeningNode listener)
+    {
+        CurrentListener = listener;
+        if (listener is Paragraph)
+            ReadKey();
+    }
+
     public ConsoleService() => GlobalSettings.Service = this;
     public Color CurrentColor { get; set; } = GlobalSettings.DefaultTextColor;
 
@@ -11,12 +20,14 @@ public class ConsoleService : IConsoleService
 
     public void Beep(int frequency, int duration) => throw new NotImplementedException();
     public void Clear() => ColoredLines.Clear();
-    public ConsoleKeyInfo ReadKey()
+    public void ReadKey()
     {
-        _ = ReadLineAsync().Result;
-        return new();
+
     }
-    public string? ReadLine() => ReadLineAsync().Result;
+    public void ReadLine()
+    {
+
+    }
     public void Write(string? value)
     {
         if (value == null) return;
@@ -52,5 +63,4 @@ public class ConsoleService : IConsoleService
         InputTaskCompletionSource = new TaskCompletionSource<string>();
         return InputTaskCompletionSource.Task;
     }
-
 }
