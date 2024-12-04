@@ -4,30 +4,18 @@ namespace TextAttempt.Services;
 public class ConsoleService : IConsoleService
 {
     private IListeningNode? CurrentListener;
-    public void SetListener(IListeningNode listener)
-    {
-        CurrentListener = listener;
-        if (listener is Paragraph)
-            ReadKey();
-    }
+    public void SetListener(IListeningNode listener) => CurrentListener = listener;
 
     public ConsoleService() => GlobalSettings.Service = this;
     public Color CurrentColor { get; set; } = GlobalSettings.DefaultTextColor;
 
     public List<List<TextSegment>> ColoredLines { get; } = [];
     public string UserInput { get; set; } = string.Empty;
-    private TaskCompletionSource<string>? InputTaskCompletionSource;
 
     public void Beep(int frequency, int duration) => throw new NotImplementedException();
     public void Clear() => ColoredLines.Clear();
-    public void ReadKey()
-    {
-
-    }
-    public void ReadLine()
-    {
-
-    }
+    public void ReadKey() => throw new NotImplementedException();
+    public void ReadLine() => throw new NotImplementedException();
     public void Write(string? value)
     {
         if (value == null) return;
@@ -48,19 +36,9 @@ public class ConsoleService : IConsoleService
 
     public void ProcessInput()
     {
+        CurrentListener?.ProcessResult(UserInput);
         UserInput = string.Empty;
-        if (InputTaskCompletionSource != null && !string.IsNullOrEmpty(UserInput))
-        {
-            InputTaskCompletionSource.SetResult(UserInput);
-            UserInput = string.Empty; // Clear the input field
-        }
     }
 
     private string AsHex(Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
-
-    public Task<string> ReadLineAsync()
-    {
-        InputTaskCompletionSource = new TaskCompletionSource<string>();
-        return InputTaskCompletionSource.Task;
-    }
 }

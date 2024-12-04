@@ -9,5 +9,5 @@ public static class Paragraphs
     Line("Would you like a drink?", Color.Bisque).
     Line("This ").Text("is red", Color.Red).Text(" only.").
     GoTo(Menus.MainMenu).
-    DelayInSeconds(0);
+    PressToContinue();
 }
