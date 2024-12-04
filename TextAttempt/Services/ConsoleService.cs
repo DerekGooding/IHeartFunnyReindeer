@@ -37,6 +37,7 @@ public class ConsoleService : IConsoleService
 
     public void ProcessInput()
     {
+        UserInput = string.Empty;
         if (InputTaskCompletionSource != null && !string.IsNullOrEmpty(UserInput))
         {
             InputTaskCompletionSource.SetResult(UserInput);
