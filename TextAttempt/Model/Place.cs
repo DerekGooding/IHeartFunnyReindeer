@@ -1,5 +1,4 @@
-﻿
-namespace TextAttempt;
+﻿namespace TextAttempt.Model;
 
 public record struct Place(string Description, Color Color, Action Action) : IMenuOption
 {

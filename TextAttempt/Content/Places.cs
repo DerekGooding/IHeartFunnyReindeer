@@ -1,4 +1,6 @@
-﻿namespace TextAttempt;
+﻿using TextAttempt.Model;
+
+namespace TextAttempt.Content;
 
 public static class Places
 {

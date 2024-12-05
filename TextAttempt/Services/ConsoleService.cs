@@ -1,4 +1,7 @@
 ﻿
+using TextAttempt.Content;
+using TextAttempt.Model;
+
 namespace TextAttempt.Services;
 
 public class ConsoleService : IConsoleService
@@ -41,8 +44,6 @@ public class ConsoleService : IConsoleService
     public void ProcessInput()
     {
         ListenerQueue[^1].ProcessResult(UserInput);
-        //if (ListenerQueue[^1] is not Menu)
-        //    ListenerQueue.RemoveAt(ListenerQueue.Count - 1);
         UserInput = string.Empty;
     }
 

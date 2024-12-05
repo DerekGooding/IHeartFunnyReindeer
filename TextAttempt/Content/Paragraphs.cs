@@ -1,6 +1,6 @@
 ﻿using static ConsoleHero.ParagraphBuilder;
 
-namespace TextAttempt;
+namespace TextAttempt.Content;
 
 public static class Paragraphs
 {

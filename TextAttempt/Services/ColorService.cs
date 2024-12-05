@@ -1,4 +1,6 @@
-﻿namespace TextAttempt.Services;
+﻿using TextAttempt.Content;
+
+namespace TextAttempt.Services;
 
 public class ColorService : IColorService
 {
