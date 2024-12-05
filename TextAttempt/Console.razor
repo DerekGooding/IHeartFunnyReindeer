@@ -25,18 +25,12 @@
     private ColorService ColorService { get; set; }
     private ElementReference consoleOutputRef;
 
-    private async Task HandleKeyDown(KeyboardEventArgs e)
+    private void HandleKeyDown(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
         {
             ConsoleService.ProcessInput();
         }
-    }
-
-    private async Task ProcessCommand(string command)
-    {
-        
-        await Task.Delay(100);
     }
 
     private async Task ScrollToBottomAsync() => await JSRuntime.InvokeVoidAsync("scrollToBottom", consoleOutputRef);
