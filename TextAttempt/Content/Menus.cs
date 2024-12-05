@@ -8,7 +8,13 @@ public static class Menus
         Title("!-- Main Chamber --|").
         Description("Look Around").GoTo(Paragraphs.SeeNothing).
         Description("Move").GoTo(MoveMenu).
+        Description("Check Inventory").GoTo(Inventory).
         NoRefuse();
+
+    public static Menu Inventory =>
+        Title("!-- Inventory --|").
+        OptionsFromList(Items.All, Player.SeeInventory).
+        Exit();
 
     public static Menu MoveMenu =>
         Title("Where do you want to go?").

@@ -9,7 +9,11 @@ public class ConsoleService : IConsoleService
     private readonly List<IListeningNode> ListenerQueue = [];
     public void SetListener(IListeningNode listener) => ListenerQueue.Add(listener);
 
-    public ConsoleService() => GlobalSettings.Service = this;
+    public ConsoleService()
+    {
+        GlobalSettings.Service = this;
+        GlobalSettings.Spacing = 0;
+    }
 
     public Color CurrentColor { get; set; } = GlobalSettings.DefaultTextColor;
 
