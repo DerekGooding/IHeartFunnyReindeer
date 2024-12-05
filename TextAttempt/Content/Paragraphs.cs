@@ -13,4 +13,10 @@ public static class Paragraphs
     Immediate();
 
     public static Paragraph SeeNothing => Line("There is nothing here...").Immediate();
+
+    public static Paragraph Help =>
+        Line("Secrets revealed!").
+        Line("Enter to continue.").
+        GoTo(GlobalSettings.Service.Exit).
+        PressToContinue();
 }

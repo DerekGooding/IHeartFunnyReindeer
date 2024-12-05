@@ -9,11 +9,12 @@ public static class Menus
         Description("Look Around").GoTo(Paragraphs.SeeNothing).
         Description("Move").GoTo(MoveMenu).
         Description("Check Inventory").GoTo(Inventory).
+        Key("help").IsHidden().GoTo(Paragraphs.Help).
         NoRefuse();
 
     public static Menu Inventory =>
         Title("!-- Inventory --|").
-        OptionsFromList(Items.All, Player.SeeInventory).
+        OptionsFromList(Player.ExistingInventory, Player.SeeInventory).
         Exit();
 
     public static Menu MoveMenu =>
