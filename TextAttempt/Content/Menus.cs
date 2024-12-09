@@ -37,4 +37,19 @@ public static class Menus
         Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Workshop))).
         Description("Travel").GoTo(MoveMenu).
         NoRefuse();
+
+    public static Menu OfficeMenu =>
+        Title("!-- Office --|", Color.DarkGreen).
+        ClearOnCall().
+        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Workshop))).
+        Description("Pick up an Order Form").If(Player.CanOrder).GoTo(Paragraphs.OrderFormMessage).
+        Description("Travel").GoTo(MoveMenu).
+        NoRefuse();
+
+    public static Menu OrderFormMenu =>
+    NoTitle().
+    Description("[] - Wood"         ).GoTo(() => Player.PlaceOrder(Buildables.Get(Buildables.ByName.BundleOfWood))).
+    Description("[] - Paint"        ).GoTo(() => Player.PlaceOrder(Buildables.Get(Buildables.ByName.BucketOfPaint))).
+    Description("[] - Wapping Paper").GoTo(() => Player.PlaceOrder(Buildables.Get(Buildables.ByName.BoxOfWrapping))).
+    Cancel();
 }

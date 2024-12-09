@@ -8,6 +8,10 @@ public static class Buildables
     {
         Snowman,
         StashOfThings,
+        StackOfOrderForms,
+        BundleOfWood,
+        BoxOfWrapping,
+        BucketOfPaint,
     }
 
     public static List<Buildable> All { get; } = [.. Enum.GetNames<ByName>().Select(x=> new Buildable(ConvertCamelCaseToSpaces(x)))];

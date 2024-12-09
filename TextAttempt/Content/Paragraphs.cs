@@ -41,4 +41,11 @@ public static class Paragraphs
             Places.Get(Places.ByName.Farm).AddBuildable(Buildables.Get(Buildables.ByName.Snowman));
         }).
         DelayInSeconds(1);
+
+    public static Paragraph OrderFormMessage =>
+        Line("You pick up an order form.").
+        Line("You notice there are check boxes for the following items and a pencil to leave a check.").
+        Line("Which item would you like to order?").
+        GoTo(Menus.OrderFormMenu).
+        Immediate();
 }
