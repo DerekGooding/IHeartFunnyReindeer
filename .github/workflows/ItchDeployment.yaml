@@ -10,35 +10,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Step 2: Setup .NET
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0 
 
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: dotnet restore
 
+      # Step 4: Build Blazor WebAssembly
       - name: Build Blazor WebAssembly
         run: dotnet publish -c Release -o build_output
 
+      # Step 5: Prepare the build for Itch.io
       - name: Zip the build output
-        run: zip -r build.zip build_output
+        run: |
+          cd build_output/wwwroot
+          zip -r ../../build.zip .  # Zip files inside `wwwroot` at the root of the zip
 
-      - name: Check file integrity
-        run: file butler.zip
-
-      - name: Deploy to itch.io from documentation
-        env:
-          BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
-          CHANNEL: windows
-          ITCH_GAME: iheartfunnyreindeer
-          ITCH_USER: totalg
-          PACKAGE: build/windows
+      # Step 6: Download Butler
+      - name: Download Butler
         run: |
           curl -L -o butler.zip https://dl.itch.ovh/butler/linux-amd64/latest/archive/default
           unzip butler.zip -d butler
-          ./butler/butler push build.zip totalg/iheartfunnyreindeer:html5
 
+      # Step 7: Deploy to itch.io
+      - name: Deploy to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+        run: ./butler/butler push build.zip totalg/iheartfunnyreindeer:html5
