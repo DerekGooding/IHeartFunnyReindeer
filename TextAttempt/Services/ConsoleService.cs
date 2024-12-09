@@ -1,8 +1,7 @@
-﻿
-using TextAttempt.Content;
-using TextAttempt.Model;
+﻿using IHeartFunnyReindeer.Content;
+using IHeartFunnyReindeer.Model;
 
-namespace TextAttempt.Services;
+namespace IHeartFunnyReindeer.Services;
 
 public class ConsoleService : IConsoleService
 {
@@ -30,7 +29,7 @@ public class ConsoleService : IConsoleService
     public void Write(string? value)
     {
         if (value == null) return;
-        if(ColoredLines.Count == 0)
+        if (ColoredLines.Count == 0)
             ColoredLines.Add([]);
 
         ColoredLines[^1].Add(new() { Color = AsHex(CurrentColor), Text = value });
@@ -56,9 +55,7 @@ public class ConsoleService : IConsoleService
     {
         ListenerQueue.RemoveAt(ListenerQueue.Count - 1);
         if (ListenerQueue.Count == 0)
-        {
             Paragraphs.Greeting.Call();
-        }
         ProcessInput();
     }
     public void Exit()

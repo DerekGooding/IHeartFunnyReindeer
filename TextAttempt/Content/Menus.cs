@@ -1,6 +1,6 @@
 ﻿using static ConsoleHero.MenuBuilder;
 
-namespace TextAttempt.Content;
+namespace IHeartFunnyReindeer.Content;
 
 public static class Menus
 {

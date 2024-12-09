@@ -1,6 +1,6 @@
-﻿using TextAttempt.Model;
+﻿using IHeartFunnyReindeer.Model;
 
-namespace TextAttempt.Content;
+namespace IHeartFunnyReindeer.Content;
 
 public static class Items
 {

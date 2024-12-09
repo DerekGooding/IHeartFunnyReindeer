@@ -1,6 +1,6 @@
-﻿using TextAttempt.Content;
+﻿using IHeartFunnyReindeer.Content;
 
-namespace TextAttempt.Services;
+namespace IHeartFunnyReindeer.Services;
 
 public class ColorService : IColorService
 {

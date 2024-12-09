@@ -1,4 +1,4 @@
-﻿namespace TextAttempt.Model;
+﻿namespace IHeartFunnyReindeer.Model;
 
 public record struct Place(string Description, Color Color, Action Action) : IMenuOption
 {

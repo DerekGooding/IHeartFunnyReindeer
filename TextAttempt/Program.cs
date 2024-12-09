@@ -1,7 +1,8 @@
+using IHeartFunnyReindeer.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using TextAttempt.Services;
+using TextAttempt;
 
-namespace TextAttempt;
+namespace IHeartFunnyReindeer;
 
 public static class Program
 {

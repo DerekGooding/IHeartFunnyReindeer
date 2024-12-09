@@ -1,6 +1,6 @@
-﻿using TextAttempt.Model;
+﻿using IHeartFunnyReindeer.Model;
 
-namespace TextAttempt.Content;
+namespace IHeartFunnyReindeer.Content;
 
 public static class Player
 {
@@ -9,5 +9,5 @@ public static class Player
     public static void SeeInventory(Item item)
         => GlobalSettings.Service.WriteLine($"You have {Inventory[item]} {item.Name}");
 
-    public static IEnumerable<Item> ExistingInventory => Inventory.Where(x=> x.Value > 0).Select(x => x.Key);
+    public static IEnumerable<Item> ExistingInventory => Inventory.Where(x => x.Value > 0).Select(x => x.Key);
 }

@@ -1,7 +1,7 @@
-﻿using TextAttempt.Content;
-using TextAttempt.Model;
+﻿using IHeartFunnyReindeer.Content;
+using IHeartFunnyReindeer.Model;
 
-namespace TextAttempt.Services;
+namespace IHeartFunnyReindeer.Services;
 
 public class InventoryService
 {
