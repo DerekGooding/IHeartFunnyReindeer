@@ -27,6 +27,7 @@ public static class Menus
         ClearOnCall().
         Description("Look Around").GoTo(Paragraphs.SeeNothing).
         Description("Pick up Snow").GoTo(Paragraphs.GetSnow).
+        Description("Build Snowman").If(() => Player.Inventory[Items.Get(Items.ByName.Snow)] >= 10).GoTo(Paragraphs.MakeSnowman).
         Description("Move").GoTo(MoveMenu).
         NoRefuse();
 

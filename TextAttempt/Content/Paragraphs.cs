@@ -21,7 +21,13 @@ public static class Paragraphs
         PressToContinue();
 
     public static Paragraph GetSnow =>
-        Line("You bend over and scoop up some snow").
+        Line("You bend over and scoop up some snow.").
         GoTo(() => Player.Inventory[Items.Get(Items.ByName.Snow)]++).
+        Immediate();
+
+    public static Paragraph MakeSnowman =>
+        Line("The snow in your pockets was melting.").
+        Line("With a little effort, you manage to build a snowman.").
+        GoTo(() => Player.Inventory[Items.Get(Items.ByName.Snow)] -= 10).
         Immediate();
 }
