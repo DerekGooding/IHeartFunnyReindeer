@@ -21,8 +21,16 @@
 @code {
     [Inject]
     private ConsoleService ConsoleService { get; set; }
+
     [Inject]
     private ColorService ColorService { get; set; }
+
+    public Console(ConsoleService consoleService, ColorService colorService)
+    {
+        ConsoleService = consoleService;
+        ColorService = colorService;
+    }
+
     private ElementReference consoleOutputRef;
 
     private void HandleKeyDown(KeyboardEventArgs e)
