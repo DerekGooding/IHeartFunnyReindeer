@@ -19,4 +19,9 @@ public static class Paragraphs
         Line("Enter to continue.").
         GoTo(GlobalSettings.Service.Exit).
         PressToContinue();
+
+    public static Paragraph GetSnow =>
+        Line("You bend over and scoop up some snow").
+        GoTo(() => Player.Inventory[Items.Get(Items.ByName.Snow)]++).
+        Immediate();
 }

@@ -1,10 +1,10 @@
 ﻿@inject IJSRuntime JSRuntime
-@    using System.Timers
-@    using TextAttempt.Services
+@using System.Timers
+@using IHeartFunnyReindeer.Services
 
 <div class="console-container">
     <div class="console-output" @ref="consoleOutputRef">
-        @foreach (var line in ConsoleService?.ColoredLines)
+        @foreach (var line in ConsoleService.ColoredLines)
         {
             <div class="console-line">
                 @foreach (var segment in line)
@@ -20,9 +20,9 @@
 
 @code {
     [Inject]
-    private ConsoleService? ConsoleService { get; set; }
+    private ConsoleService ConsoleService { get; set; }
     [Inject]
-    private ColorService? ColorService { get; set; }
+    private ColorService ColorService { get; set; }
     private ElementReference consoleOutputRef;
 
     private void HandleKeyDown(KeyboardEventArgs e)

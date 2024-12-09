@@ -1,6 +1,5 @@
 using IHeartFunnyReindeer.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using TextAttempt;
 
 namespace IHeartFunnyReindeer;
 

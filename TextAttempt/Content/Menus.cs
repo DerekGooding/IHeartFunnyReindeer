@@ -26,6 +26,7 @@ public static class Menus
         Title("!-- Farm --|", Color.Beige).
         ClearOnCall().
         Description("Look Around").GoTo(Paragraphs.SeeNothing).
+        Description("Pick up Snow").GoTo(Paragraphs.GetSnow).
         Description("Move").GoTo(MoveMenu).
         NoRefuse();
 
