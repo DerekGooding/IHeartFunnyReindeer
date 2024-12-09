@@ -21,4 +21,10 @@ public static class Player
     }
 
     public static bool CanOrder { get; set; } = true;
+
+    public static void Initialize()
+    {
+        Places.Get(Places.ByName.MainChamber).AddBuildable(Buildables.Get(Buildables.ByName.StashOfThings));
+        Places.Get(Places.ByName.Office).AddBuildable(Buildables.Get(Buildables.ByName.StackOfOrderForms));
+    }
 }

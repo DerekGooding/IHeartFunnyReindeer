@@ -41,7 +41,7 @@ public static class Menus
     public static Menu OfficeMenu =>
         Title("!-- Office --|", Color.DarkGreen).
         ClearOnCall().
-        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Workshop))).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Office))).
         Description("Pick up an Order Form").If(Player.CanOrder).GoTo(Paragraphs.OrderFormMessage).
         Description("Travel").GoTo(MoveMenu).
         NoRefuse();

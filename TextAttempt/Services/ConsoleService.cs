@@ -12,6 +12,7 @@ public class ConsoleService : IConsoleService
     {
         GlobalSettings.Service = this;
         GlobalSettings.Spacing = 0;
+        Player.Initialize();
     }
 
     public Color CurrentColor { get; set; } = GlobalSettings.DefaultTextColor;

@@ -1,14 +1,18 @@
 ﻿namespace IHeartFunnyReindeer.Model;
 
-public class Place(string Name, Color Color, Action Action, Dictionary<Buildable, int>? buildables = null) : IMenuOption
+public class Place(string name, Color color, Action action) : IMenuOption
 {
+    private string Name { get; } = name;
+    private Color Color { get; } = color;
+    private Action Action {  get; } = action;
+
+    private readonly Dictionary<Buildable, int> Buildables = [];
+
     public ColorText Print() => Name.Color(Color);
 
     public override string ToString() => Name;
 
     public void Go() => Action.Invoke();
-
-    public Dictionary<Buildable, int> Buildables = buildables ?? [];
 
     public string LookAround()
     {

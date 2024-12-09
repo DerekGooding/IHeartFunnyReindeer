@@ -1,5 +1,4 @@
 ﻿using IHeartFunnyReindeer.Model;
-using static IHeartFunnyReindeer.Content.Places.ByName;
 
 namespace IHeartFunnyReindeer.Content;
 
@@ -15,23 +14,13 @@ public static class Places
 
     public static List<Place> All { get; } =
         [
-            new(With(MainChamber),
-                GlobalSettings.DefaultTextColor,
-                GlobalSettings.Service.Exit,
-                new(){[Buildables.Get(Buildables.ByName.StashOfThings)] = 1}),
-            new(With(Farm),
-                Color.Beige,
-                () => Menus.FarmMenu.Call()),
-            new(With(Workshop),
-                Color.Aqua,
-                () => Menus.WorkshopMenu.Call()),
-            new(With(Office),
-                Color.DarkGreen,
-                () => Menus.OfficeMenu.Call(),
-                new(){[Buildables.Get(Buildables.ByName.StackOfOrderForms)] = 1}),
+            new(With(ByName.MainChamber),GlobalSettings.DefaultTextColor,GlobalSettings.Service.Exit),
+            new(With(ByName.Farm),Color.Beige,() => Menus.FarmMenu.Call()),
+            new(With(ByName.Workshop),Color.Aqua,() => Menus.WorkshopMenu.Call()),
+            new(With(ByName.Office),Color.DarkGreen,() => Menus.OfficeMenu.Call()),
         ];
 
     public static Place Get(ByName name) => All[(int)name];
 
-    private static string With(ByName name) => ConvertCamelCaseToSpaces(nameof(name));
+    private static string With(ByName name) => ConvertCamelCaseToSpaces(name.ToString());
 }
