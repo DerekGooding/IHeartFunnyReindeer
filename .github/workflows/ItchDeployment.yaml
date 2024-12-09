@@ -32,7 +32,7 @@ jobs:
       - name: Zip the build output
         run: |
           cd build_output/wwwroot
-          zip -r ../../build.zip .  # Zip files inside `wwwroot` at the root of the zip
+          zip -r ../../build.zip .  
 
       # Step 6: Download Butler
       - name: Download Butler
