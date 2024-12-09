@@ -27,6 +27,9 @@ jobs:
       - name: Zip the build output
         run: zip -r build.zip build_output
 
+      - name: Check file integrity
+        run: file butler.zip
+
       - name: Deploy to itch.io from documentation
         env:
           BUTLER_CREDENTIALS: ${{ secrets.ITCH_API_KEY }}
@@ -35,7 +38,7 @@ jobs:
           ITCH_USER: totalg
           PACKAGE: build/windows
         run: |
-          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/latest/archive/default
+          curl -L -o butler.zip https://dl.itch.ovh/butler/linux-amd64/latest/archive/default
           unzip butler.zip -d butler
           ./butler/butler push build.zip totalg/iheartfunnyreindeer:html5
 
