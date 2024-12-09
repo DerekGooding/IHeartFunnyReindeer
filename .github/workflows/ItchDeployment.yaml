@@ -1,4 +1,4 @@
-name: Build and Deploy to itch.io
+name: Build and Deploy to itch.io,,
 
 on:
   push:
