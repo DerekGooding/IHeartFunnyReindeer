@@ -1,4 +1,4 @@
-name: Build and Deploy to itch.io,,
+name: Build and Deploy to itch.io
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
       # Step 5: Prepare the build for Itch.io
       - name: Zip the build output
         run: |
-          cd build_output
+          cd build_output/wwwroot
           zip -r ../../build.zip .  
 
       # Step 6: Download Butler
