@@ -17,7 +17,7 @@ public static class Items
         Snow,
     }
 
-    public static List<Item> All => [.. Enum.GetNames<ByName>().Select(x=> new Item(ConvertCamelCaseToSpaces(x)))];
+    public static List<Item> All { get; } = [.. Enum.GetNames<ByName>().Select(x=> new Item(ConvertCamelCaseToSpaces(x)))];
 
     public static Item Get(ByName name) => All[(int)name];
 }

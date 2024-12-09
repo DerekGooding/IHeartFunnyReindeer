@@ -10,4 +10,6 @@ public static class Player
         => GlobalSettings.Service.WriteLine($"You have {Inventory[item]} {item.Name}");
 
     public static IEnumerable<Item> ExistingInventory => Inventory.Where(x => x.Value > 0).Select(x => x.Key);
+
+    public static void LookAround(Place place) => GlobalSettings.Service.WriteLine(place.LookAround());
 }

@@ -6,9 +6,9 @@ public static class Menus
 {
     public static Menu MainChamber =>
         Title("!-- Main Chamber --|").
-        Description("Look Around").GoTo(Paragraphs.SeeNothing).
-        Description("Move").GoTo(MoveMenu).
-        Description("Check Inventory").GoTo(Inventory).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.MainChamber))).
+        Description("Travel").GoTo(MoveMenu).
+        Description("Check Stash").GoTo(Inventory).
         Key("help").IsHidden().GoTo(Paragraphs.Help).
         NoRefuse();
 
@@ -25,16 +25,16 @@ public static class Menus
     public static Menu FarmMenu =>
         Title("!-- Farm --|", Color.Beige).
         ClearOnCall().
-        Description("Look Around").GoTo(Paragraphs.SeeNothing).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Farm))).
         Description("Pick up Snow").GoTo(Paragraphs.GetSnow).
         Description("Build Snowman").If(() => Player.Inventory[Items.Get(Items.ByName.Snow)] >= 10).GoTo(Paragraphs.MakeSnowman).
-        Description("Move").GoTo(MoveMenu).
+        Description("Travel").GoTo(MoveMenu).
         NoRefuse();
 
     public static Menu WorkshopMenu =>
         Title("!-- Workshop --|", Color.Aqua).
         ClearOnCall().
-        Description("Look Around").GoTo(Paragraphs.SeeNothing).
-        Description("Move").GoTo(MoveMenu).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Workshop))).
+        Description("Travel").GoTo(MoveMenu).
         NoRefuse();
 }

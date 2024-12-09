@@ -12,6 +12,7 @@ public class ConsoleService : IConsoleService
     {
         GlobalSettings.Service = this;
         GlobalSettings.Spacing = 0;
+        Places.Get(Places.ByName.MainChamber).AddBuildable(Buildables.Get(Buildables.ByName.StashOfThings));
     }
 
     public Color CurrentColor { get; set; } = GlobalSettings.DefaultTextColor;
