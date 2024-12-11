@@ -6,6 +6,7 @@
     <div id="glitchText">Glitching Text!</div>
     <div id="scrambleText">Original Text</div>
     <div id="distortionText">Distorted Text</div>
+    <div id="hackingText" class="hacking-sequence">Initializing...</div>
     <div class="console-output" @ref="consoleOutputRef">
         @foreach (var line in ConsoleService.ColoredLines)
         {
@@ -48,6 +49,9 @@
             await TriggerGlitchEffectAsync("glitchText");
             await TriggerScrambleEffectAsync("scrambleText", "Final Text");
             await TriggerDistortionWaveAsync("distortionText");
+
+            await TriggerHackingSequenceAsync("hackingText", "ACCESS GRANTED");
+
         }
     }
 
@@ -63,4 +67,8 @@
     private async Task TriggerShakeAsync() => await JSRuntime.InvokeVoidAsync("shakeElement", consoleOutputRef);
 
     private async Task ScrollToBottomAsync() => await JSRuntime.InvokeVoidAsync("scrollToBottom", consoleOutputRef);
+
+    private async Task TriggerHackingSequenceAsync(string elementId, string finalText) 
+    => await JSRuntime.InvokeVoidAsync("hackingSequence", elementId, finalText, 2000);
+
 }

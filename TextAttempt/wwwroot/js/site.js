@@ -19,7 +19,6 @@ function addTemporaryClass(elementId, className, duration) {
     }
 }
 
-
 function scrambleText(elementId, finalText) {
     const element = document.getElementById(elementId);
     if (!element) return;
@@ -47,11 +46,40 @@ function scrambleText(elementId, finalText) {
     }, interval);
 }
 
-
 function applyDistortionWave(elementId) {
     const element = document.getElementById(elementId);
     if (element) {
         element.classList.add('distortion-wave');
         setTimeout(() => element.classList.remove('distortion-wave'), 700); // Match animation duration
     }
+}
+
+function hackingSequence(elementId, finalText, duration = 2000) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:'\",.<>?/`~";
+    const interval = 50; // Interval between updates
+    const finalTextArray = finalText.split("");
+    let elapsed = 0;
+
+    const scramble = setInterval(() => {
+        elapsed += interval;
+
+        const scrambleText = finalTextArray.map((char, index) => {
+            if (elapsed < duration) {
+                return Math.random() > 0.5
+                    ? characters.charAt(Math.floor(Math.random() * characters.length))
+                    : char;
+            }
+            return char;
+        }).join("");
+
+        element.textContent = scrambleText;
+
+        if (elapsed >= duration) {
+            clearInterval(scramble);
+            element.textContent = finalText; // Set final text when done
+        }
+    }, interval);
 }

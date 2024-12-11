@@ -125,6 +125,31 @@
     animation: distortionWave 0.7s ease-in-out;
 }
 
+.hacking-sequence {
+    font-family: monospace;
+    color: #00ff00;
+    background: black;
+    padding: 10px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.hacking-background {
+    animation: flash 2s infinite;
+}
+
+@keyframes flash {
+    0%, 100% {
+        background-color: black;
+    }
+
+    50% {
+        background-color: #003300;
+    }
+}
+
+
 .console-output {
     flex: 1;
     overflow-y: auto;
