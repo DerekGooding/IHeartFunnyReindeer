@@ -7,6 +7,9 @@ public class Place(string name, Color color, Action action) : IMenuOption
     private Action Action {  get; } = action;
 
     private readonly Dictionary<Buildable, int> Buildables = [];
+    private readonly List<Buildable> IsSeen = [];
+
+    public bool IsDiscovered(Buildable buildable) => IsSeen.Contains(buildable);
 
     public ColorText Print() => Name.Color(Color);
 
@@ -29,6 +32,9 @@ public class Place(string name, Color color, Action action) : IMenuOption
                     output += $"A {buildable.Key}" + Environment.NewLine;
                 else
                     output += $"{buildable.Value} {buildable.Key}" + Environment.NewLine;
+
+                if(!IsSeen.Contains(buildable.Key))
+                    IsSeen.Add(buildable.Key);
             }
             return output;
         }

@@ -14,7 +14,19 @@ public static class Buildables
         BucketOfPaint,
     }
 
-    public static List<Buildable> All { get; } = [.. Enum.GetNames<ByName>().Select(x=> new Buildable(ConvertCamelCaseToSpaces(x)))];
+    public static List<Buildable> All { get; } =
+    [
+        With(ByName.Snowman),
+        With(ByName.StashOfThings),
+        With(ByName.StackOfOrderForms),
+        With(ByName.BundleOfWood, true),
+        With(ByName.BoxOfWrapping, true),
+        With(ByName.BucketOfPaint, true),
+    ];
+
+    private static Buildable With(ByName name, bool canOrder = false) => new(ConvertCamelCaseToSpaces(name.ToString()), canOrder);
 
     public static Buildable Get(ByName name) => All[(int)name];
+
+    public static IEnumerable<Buildable> Orderable => All.Where(x=> x.CanBeOrdered);
 }

@@ -6,21 +6,30 @@ public static class Menus
 {
     public static Menu MainChamber =>
         Title("!-- Main Chamber --|").
-        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.MainChamber))).
+        Description("Look Around").GoTo(() =>
+        {
+            Player.LookAround(Places.Get(Places.ByName.MainChamber));
+            Paragraphs.Greeting.Call();
+        }).
         Description("Travel").GoTo(MoveMenu).
-        Description("Check Stash").GoTo(Inventory).
+
+        Description("Check Stash").
+        If(Places.Get(Places.ByName.MainChamber).IsDiscovered(Buildables.Get(Buildables.ByName.StashOfThings))).
+        GoTo(Inventory).
+
         Key("help").IsHidden().GoTo(Paragraphs.Help).
         NoRefuse();
 
     public static Menu Inventory =>
         Title("!-- Inventory --|").
         OptionsFromList(Player.ExistingInventory, Player.SeeInventory).
-        Exit();
+        Description("Nothing").If(!Player.ExistingInventory.Any()).GoTo(GlobalSettings.Service.Exit).
+        NoRefuse();
 
     public static Menu MoveMenu =>
         Title("Where do you want to go?").
         OptionsFromList(Places.All, (x) => x.Go()).
-        Cancel();
+        NoRefuse();
 
     public static Menu FarmMenu =>
         Title("!-- Farm --|", Color.Beige).
@@ -48,8 +57,6 @@ public static class Menus
 
     public static Menu OrderFormMenu =>
     NoTitle().
-    Description("[] - Wood"         ).GoTo(() => Player.PlaceOrder(Buildables.Get(Buildables.ByName.BundleOfWood))).
-    Description("[] - Paint"        ).GoTo(() => Player.PlaceOrder(Buildables.Get(Buildables.ByName.BucketOfPaint))).
-    Description("[] - Wapping Paper").GoTo(() => Player.PlaceOrder(Buildables.Get(Buildables.ByName.BoxOfWrapping))).
+    OptionsFromList(Buildables.Orderable, Player.PlaceOrder).
     Cancel();
 }
