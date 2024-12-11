@@ -1,4 +1,5 @@
-﻿using static ConsoleHero.MenuBuilder;
+﻿using IHeartFunnyReindeer.Services;
+using static ConsoleHero.MenuBuilder;
 
 namespace IHeartFunnyReindeer.Content;
 
@@ -14,6 +15,7 @@ public static class Menus
         GoTo(Inventory).
 
         Key("help").IsHidden().GoTo(Paragraphs.Help).
+        Key("shake").IsHidden().GoTo(() => ((ConsoleService)GlobalSettings.Service).ToggleShake()).
         NoRefuse();
 
     public static Menu Inventory =>

@@ -33,13 +33,18 @@
 
     private ElementReference consoleOutputRef;
 
-    private void HandleKeyDown(KeyboardEventArgs e)
+    private async void HandleKeyDown(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
         {
             ConsoleService?.ProcessInput();
+
+            if(ConsoleService?.Shake == true)
+                await TriggerShakeAsync();
         }
     }
+
+    private async Task TriggerShakeAsync() => await JSRuntime.InvokeVoidAsync("shakeElement", consoleOutputRef);
 
     private async Task ScrollToBottomAsync() => await JSRuntime.InvokeVoidAsync("scrollToBottom", consoleOutputRef);
 }

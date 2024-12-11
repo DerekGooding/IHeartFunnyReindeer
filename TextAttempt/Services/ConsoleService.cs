@@ -5,6 +5,9 @@ namespace IHeartFunnyReindeer.Services;
 
 public class ConsoleService : IConsoleService
 {
+    public bool Shake;
+    public void ToggleShake() => Shake = !Shake;
+
     private IListeningNode CurrentListener = Paragraphs.Greeting;
     public void SetListener(IListeningNode listener) => CurrentListener = listener;
 
