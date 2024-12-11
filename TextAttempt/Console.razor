@@ -1,5 +1,6 @@
 ﻿@inject IJSRuntime JSRuntime
 @using System.Timers
+@using IHeartFunnyReindeer.Model
 @using IHeartFunnyReindeer.Services
 
 <div class="console-container">
@@ -13,7 +14,9 @@
             <div class="console-line">
                 @foreach (var segment in line)
                 {
-                    <span style="color: @segment.Color">@segment.Text</span>
+                    <span style="color: @segment.Color" class="@GetEffectClass(segment.EffectType)">
+                        @segment.Text
+                    </span>
                 }
             </div>
         }
@@ -36,6 +39,17 @@
     }
 
     private ElementReference consoleOutputRef;
+
+    private string GetEffectClass(EffectType effectType)
+    {
+        return effectType switch
+        {
+            EffectType.Glitched => "glitch",
+            EffectType.Scrambled => "scrambled",
+            EffectType.Distorted => "distortion-wave",
+            _ => string.Empty
+        };
+    }
 
     private async void HandleKeyDown(KeyboardEventArgs e)
     {

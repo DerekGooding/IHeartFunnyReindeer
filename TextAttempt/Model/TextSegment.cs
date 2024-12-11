@@ -1,3 +1,11 @@
 ﻿namespace IHeartFunnyReindeer.Model;
 
-public record struct TextSegment(string Text, string Color);
+public enum EffectType
+{
+    None,
+    Glitched,
+    Scrambled,
+    Distorted,
+}
+
+public record struct TextSegment(string Text, string Color, EffectType EffectType);

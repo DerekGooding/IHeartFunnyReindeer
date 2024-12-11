@@ -36,13 +36,13 @@ public class ConsoleService : IConsoleService
         if (ColoredLines.Count == 0)
             ColoredLines.Add([]);
 
-        ColoredLines[^1].Add(new() { Color = AsHex(CurrentColor), Text = value });
+        ColoredLines[^1].Add(new() { Color = AsHex(CurrentColor), Text = value, EffectType = EffectType.Glitched });
     }
 
     public void WriteLine(string? value)
     {
         if (value == null) return;
-        ColoredLines[^1].Add(new() { Color = AsHex(CurrentColor), Text = value });
+        ColoredLines[^1].Add(new() { Color = AsHex(CurrentColor), Text = value, EffectType = EffectType.Glitched });
         ColoredLines.Add([new TextSegment() { Text = " " }]);
     }
 
