@@ -6,15 +6,11 @@ public static class Menus
 {
     public static Menu MainChamber =>
         Title("!-- Main Chamber --|").
-        Description("Look Around").GoTo(() =>
-        {
-            Player.LookAround(Places.Get(Places.ByName.MainChamber));
-            Paragraphs.Greeting.Call();
-        }).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.ByName.MainChamber.Id())).
         Description("Travel").GoTo(MoveMenu).
 
         Description("Check Stash").
-        If(Places.Get(Places.ByName.MainChamber).IsDiscovered(Buildables.Get(Buildables.ByName.StashOfThings))).
+        If(Places.ByName.MainChamber.Id().IsDiscovered(Buildables.ByName.StashOfThings)).
         GoTo(Inventory).
 
         Key("help").IsHidden().GoTo(Paragraphs.Help).
@@ -34,24 +30,28 @@ public static class Menus
     public static Menu FarmMenu =>
         Title("!-- Farm --|", Color.Beige).
         ClearOnCall().
-        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Farm))).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.ByName.Farm.Id())).
         Description("Pick up Snow").GoTo(Paragraphs.GetSnow).
-        Description("Build Snowman").If(() => Player.Inventory[Items.Get(Items.ByName.Snow)] >= 10).GoTo(Paragraphs.MakeSnowman).
+        Description("Build Snowman").If(() => Player.Inventory[Items.ByName.Snow.Id()] >= 10).GoTo(Paragraphs.MakeSnowman).
         Description("Travel").GoTo(MoveMenu).
         NoRefuse();
 
     public static Menu WorkshopMenu =>
         Title("!-- Workshop --|", Color.Aqua).
         ClearOnCall().
-        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Workshop))).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.ByName.Workshop.Id())).
         Description("Travel").GoTo(MoveMenu).
         NoRefuse();
 
     public static Menu OfficeMenu =>
         Title("!-- Office --|", Color.DarkGreen).
         ClearOnCall().
-        Description("Look Around").GoTo(() => Player.LookAround(Places.Get(Places.ByName.Office))).
-        Description("Pick up an Order Form").If(Player.CanOrder).GoTo(Paragraphs.OrderFormMessage).
+        Description("Look Around").GoTo(() => Player.LookAround(Places.ByName.Office.Id())).
+
+        Description("Pick up an Order Form").
+        If(Player.CanOrder && Places.ByName.Office.Id().IsDiscovered(Buildables.ByName.StackOfOrderForms)).
+        GoTo(Paragraphs.OrderFormMessage).
+
         Description("Travel").GoTo(MoveMenu).
         NoRefuse();
 

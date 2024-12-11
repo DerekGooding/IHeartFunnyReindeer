@@ -1,4 +1,5 @@
-﻿using static ConsoleHero.ParagraphBuilder;
+﻿using IHeartFunnyReindeer.Model;
+using static ConsoleHero.ParagraphBuilder;
 
 namespace IHeartFunnyReindeer.Content;
 
@@ -10,22 +11,23 @@ public static class Paragraphs
     GoTo(Menus.MainChamber).
     Immediate();
 
-    public static Paragraph SeeNothing =>
-        Line("There is nothing here...").
-        Immediate();
+    public static Paragraph PressToContinue(Place place) =>
+    Line("Press enter to continue").
+    GoTo(place.Go).
+    PressToContinue();
 
     public static Paragraph Help =>
-        Line("Secrets revealed!").
-        Line("Enter to continue.").
-        GoTo(GlobalSettings.Service.Exit).
-        PressToContinue();
+    Line("Secrets revealed!").
+    Line("Enter to continue.").
+    GoTo(GlobalSettings.Service.Exit).
+    PressToContinue();
 
     public static Paragraph GetSnow =>
         Line("You bend over and scoop up some snow.").
         GoTo(() =>
         {
-            Player.Inventory[Items.Get(Items.ByName.Snow)]++;
-            if (Player.Inventory[Items.Get(Items.ByName.Snow)] >= 10)
+            Player.Inventory[Items.ByName.Snow.Id()]++;
+            if (Player.Inventory[Items.ByName.Snow.Id()] >= 10)
                 Menus.FarmMenu.Call();
         }).
         Immediate();
@@ -35,10 +37,10 @@ public static class Paragraphs
         Line("With a little effort, you manage to build a snowman.").
         GoTo(() =>
         {
-            Player.Inventory[Items.Get(Items.ByName.Snow)] -= 10;
-            if (Player.Inventory[Items.Get(Items.ByName.Snow)] < 10)
+            Player.Inventory[Items.ByName.Snow.Id()] -= 10;
+            if (Player.Inventory[Items.ByName.Snow.Id()] < 10)
                 Menus.FarmMenu.Call();
-            Places.Get(Places.ByName.Farm).AddBuildable(Buildables.Get(Buildables.ByName.Snowman));
+            Places.ByName.Farm.Id().AddBuildable(Buildables.ByName.Snowman.Id());
         }).
         DelayInSeconds(1);
 

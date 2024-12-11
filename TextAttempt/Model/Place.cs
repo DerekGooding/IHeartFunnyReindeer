@@ -1,4 +1,6 @@
-﻿namespace IHeartFunnyReindeer.Model;
+﻿using IHeartFunnyReindeer.Content;
+
+namespace IHeartFunnyReindeer.Model;
 
 public class Place(string name, Color color, Action action) : IMenuOption
 {
@@ -9,13 +11,11 @@ public class Place(string name, Color color, Action action) : IMenuOption
     private readonly Dictionary<Buildable, int> Buildables = [];
     private readonly List<Buildable> IsSeen = [];
 
-    public bool IsDiscovered(Buildable buildable) => IsSeen.Contains(buildable);
+    public bool IsDiscovered(Buildables.ByName name) => IsSeen.Contains(name.Id());
 
     public ColorText Print() => Name.Color(Color);
 
     public override string ToString() => Name;
-
-    public void Go() => Action.Invoke();
 
     public string LookAround()
     {
@@ -47,4 +47,6 @@ public class Place(string name, Color color, Action action) : IMenuOption
         else
             Buildables.Add(buildable, 1);
     }
+
+    public void Go() => Action.Invoke();
 }

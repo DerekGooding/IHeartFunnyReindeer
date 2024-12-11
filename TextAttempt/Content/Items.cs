@@ -18,6 +18,4 @@ public static class Items
     }
 
     public static List<Item> All { get; } = [.. Enum.GetNames<ByName>().Select(x=> new Item(ConvertCamelCaseToSpaces(x)))];
-
-    public static Item Get(ByName name) => All[(int)name];
 }

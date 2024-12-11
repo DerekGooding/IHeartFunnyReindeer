@@ -26,7 +26,5 @@ public static class Buildables
 
     private static Buildable With(ByName name, bool canOrder = false) => new(ConvertCamelCaseToSpaces(name.ToString()), canOrder);
 
-    public static Buildable Get(ByName name) => All[(int)name];
-
     public static IEnumerable<Buildable> Orderable => All.Where(x=> x.CanBeOrdered);
 }

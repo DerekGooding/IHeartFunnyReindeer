@@ -5,8 +5,8 @@ namespace IHeartFunnyReindeer.Services;
 
 public class ConsoleService : IConsoleService
 {
-    private readonly List<IListeningNode> ListenerQueue = [];
-    public void SetListener(IListeningNode listener) => ListenerQueue.Add(listener);
+    private IListeningNode CurrentListener = Paragraphs.Greeting;
+    public void SetListener(IListeningNode listener) => CurrentListener = listener;
 
     public ConsoleService()
     {
@@ -47,21 +47,11 @@ public class ConsoleService : IConsoleService
 
     public void ProcessInput()
     {
-        ListenerQueue[^1].ProcessResult(UserInput);
+        CurrentListener.ProcessResult(UserInput);
         UserInput = string.Empty;
     }
 
     private string AsHex(Color c) => $"#{c.R:X2}{c.G:X2}{c.B:X2}";
-    public void Cancel()
-    {
-        ListenerQueue.RemoveAt(ListenerQueue.Count - 1);
-        if (ListenerQueue.Count == 0)
-            Paragraphs.Greeting.Call();
-        ProcessInput();
-    }
-    public void Exit()
-    {
-        ListenerQueue.Clear();
-        Paragraphs.Greeting.Call();
-    }
+    public void Cancel() => throw new NotImplementedException();
+    public void Exit() => Paragraphs.Greeting.Call();
 }
