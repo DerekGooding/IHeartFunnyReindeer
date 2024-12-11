@@ -3,6 +3,9 @@
 @using IHeartFunnyReindeer.Services
 
 <div class="console-container">
+    <div id="glitchText">Glitching Text!</div>
+    <div id="scrambleText">Original Text</div>
+    <div id="distortionText">Distorted Text</div>
     <div class="console-output" @ref="consoleOutputRef">
         @foreach (var line in ConsoleService.ColoredLines)
         {
@@ -41,8 +44,21 @@
 
             if(ConsoleService?.Shake == true)
                 await TriggerShakeAsync();
+
+            await TriggerGlitchEffectAsync("glitchText");
+            await TriggerScrambleEffectAsync("scrambleText", "Final Text");
+            await TriggerDistortionWaveAsync("distortionText");
         }
     }
+
+    private async Task TriggerGlitchEffectAsync(string elementId) 
+    => await JSRuntime.InvokeVoidAsync("addTemporaryClass", elementId, "glitch", 500);
+
+    private async Task TriggerScrambleEffectAsync(string elementId, string finalText) 
+    => await JSRuntime.InvokeVoidAsync("scrambleText", elementId, finalText);
+
+    private async Task TriggerDistortionWaveAsync(string elementId) 
+    => await JSRuntime.InvokeVoidAsync("applyDistortionWave", elementId);
 
     private async Task TriggerShakeAsync() => await JSRuntime.InvokeVoidAsync("shakeElement", consoleOutputRef);
 
