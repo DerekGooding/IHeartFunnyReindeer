@@ -12,6 +12,8 @@ public static class Buildables
         BundleOfWood,
         BoxOfWrapping,
         BucketOfPaint,
+        Mirror,
+        LockedDoor,
     }
 
     public static List<Buildable> All { get; } =
@@ -22,6 +24,8 @@ public static class Buildables
         With(ByName.BundleOfWood, true),
         With(ByName.BoxOfWrapping, true),
         With(ByName.BucketOfPaint, true),
+        With(ByName.Mirror),
+        With(ByName.LockedDoor),
     ];
 
     private static Buildable With(ByName name, bool canOrder = false) => new(ConvertCamelCaseToSpaces(name.ToString()), canOrder);

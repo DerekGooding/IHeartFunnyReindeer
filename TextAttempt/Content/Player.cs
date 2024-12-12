@@ -33,6 +33,7 @@ public static class Player
     public static void Initialize()
     {
         Places.ByName.MainChamber.Id().AddBuildable(Buildables.ByName.StashOfThings.Id());
+        Places.ByName.MainChamber.Id().AddBuildable(Buildables.ByName.LockedDoor.Id());
         Places.ByName.Office.Id().AddBuildable(Buildables.ByName.StackOfOrderForms.Id());
     }
 }

@@ -3,11 +3,15 @@
 @using IHeartFunnyReindeer.Model
 @using IHeartFunnyReindeer.Services
 
-<div class="console-container">
-    <div id="glitchText">Glitching Text!</div>
+<div id="splash-screen" class="splash-screen">
+    <h1>IHeartFunnyReindeer</h1>
+</div>
+
+<div id="main-content" class="console-container">
+@*     <div id="glitchText">Glitching Text!</div>
     <div id="scrambleText">Original Text</div>
     <div id="distortionText">Distorted Text</div>
-    <div id="hackingText" class="hacking-sequence">Initializing...</div>
+    <div id="hackingText" class="hacking-sequence">Initializing...</div> *@
     <div class="console-output" @ref="consoleOutputRef">
         @foreach (var line in ConsoleService.ColoredLines)
         {
@@ -24,6 +28,8 @@
     <input @bind="ConsoleService.UserInput" @bind:event="oninput" @onkeydown="HandleKeyDown" 
     placeholder="Enter command..." class="console-input" />
 </div>
+
+
 
 @code {
     [Inject]
@@ -85,4 +91,11 @@
     private async Task TriggerHackingSequenceAsync(string elementId, string finalText) 
     => await JSRuntime.InvokeVoidAsync("hackingSequence", elementId, finalText, 2000);
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("fadeOutSplash");
+        }
+    }
 }
