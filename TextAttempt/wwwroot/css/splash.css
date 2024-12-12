@@ -1,17 +1,17 @@
 ﻿.splash-screen {
-    position: fixed; /* Ensures the div stays in place relative to the viewport */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    background-color: black; /* Background color of the splash screen */
-    color: white; /* Text color */
-    display: flex; /* Flexbox for centering content */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    opacity: 1; /* Fully visible initially */
-    transition: opacity 2s ease-in-out; /* Smooth fade-out effect */
-    z-index: 1000; /* Ensure it appears above all other content */
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+    z-index: 1000;
 }
 
 .splash-screen.hidden {

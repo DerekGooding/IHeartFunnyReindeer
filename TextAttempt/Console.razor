@@ -3,7 +3,7 @@
 @using IHeartFunnyReindeer.Model
 @using IHeartFunnyReindeer.Services
 
-<div id="splash-screen" class="splash-screen">
+<div id="splash-screen" class="splash-screen @(IsSplashVisible ? "" : "hidden")">
     <h1>IHeartFunnyReindeer</h1>
 </div>
 
@@ -37,6 +37,8 @@
 
     [Inject]
     private ColorService ColorService { get; set; }
+
+    private bool IsSplashVisible = true;
 
     public Console(ConsoleService consoleService, ColorService colorService)
     {
@@ -95,7 +97,10 @@
     {
         if (firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("fadeOutSplash");
+            await Task.Delay(100);
+            IsSplashVisible = false;
+
+            StateHasChanged();
         }
     }
 }
